@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Library</string>
+    <string name="title_browse_books">Просмотр книг</string>
+    <string name="title_my_books">Мои книги</string>
+    <string name="title_profile">Профиль студента</string>
+    <string name="search_hint">Поиск книг…</string>
+    <string name="no_books_found">Книги не найдены</string>
+    <string name="error_loading_books">Ошибка при загрузке книг</string>
+    <string name="login">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="full_name">ФИО</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="group">Группа</string>
+    <string name="save_changes">Сохранить изменения</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="student_login">Вход для студентов</string>
+    <string name="admin_login">Вход для администратора</string>
+    <string name="welcome_to_library">Добро пожаловать в библиотеку</string>
+    <string name="student">Студент</string>
+    <string name="admin">Администратор</string>
+    <string name="borrow_book">Взять книгу</string>
+    <string name="book_borrowed">Книга успешно взята</string>
+    <string name="error_borrowing_book">Ошибка при получении книги</string>
+    <string name="already_borrowed">Вы уже взяли эту книгу</string>
+    <string name="book_image">Изображение книги</string>
+</resources>

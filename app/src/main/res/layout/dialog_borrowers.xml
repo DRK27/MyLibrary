@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:backgroundTint="#5EF8F4F4"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Кто взял книгу"
+        android:textStyle="bold"
+        android:fontFamily="@font/popins_bold"
+        android:textColor="@color/brown"
+        android:textSize="24sp"
+        android:layout_marginBottom="12dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarBorrowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvEmptyBorrowers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Никто не взял эту книгу"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="12dp" />
+
+    <ListView
+        android:id="@+id/listViewBorrowers"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+</LinearLayout> 

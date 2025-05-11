@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/roleSelectionFragment">
+
+    <fragment
+        android:id="@+id/roleSelectionFragment"
+        android:name="com.example.mylibrary.ui.auth.RoleSelectionFragment"
+        android:label="Role Selection">
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_studentLoginFragment"
+            app:destination="@id/studentLoginFragment" />
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_adminLoginFragment"
+            app:destination="@id/adminLoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studentLoginFragment"
+        android:name="com.example.mylibrary.ui.auth.StudentLoginFragment"
+        android:label="Student Login">
+        <action
+            android:id="@+id/action_studentLoginFragment_to_studentMainFragment"
+            app:destination="@id/studentMainFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_studentLoginFragment_to_studentRegisterFragment"
+            app:destination="@id/studentRegisterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studentRegisterFragment"
+        android:name="com.example.mylibrary.ui.auth.StudentRegisterFragment"
+        android:label="Student Register">
+        <action
+            android:id="@+id/action_studentRegisterFragment_to_studentMainFragment"
+            app:destination="@id/studentMainFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studentMainFragment"
+        android:name="com.example.mylibrary.ui.student.StudentMainFragment"
+        android:label="Student Main">
+        <action
+            android:id="@+id/action_studentMainFragment_to_browseBooksFragment"
+            app:destination="@id/browseBooksFragment" />
+        <action
+            android:id="@+id/action_studentMainFragment_to_myBooksFragment"
+            app:destination="@id/myBooksFragment" />
+        <action
+            android:id="@+id/action_studentMainFragment_to_studentProfileFragment"
+            app:destination="@id/studentProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/browseBooksFragment"
+        android:name="com.example.mylibrary.ui.student.BrowseBooksFragment"
+        android:label="Browse Books">
+        <action
+            android:id="@+id/action_browseBooksFragment_to_studentLoginFragment"
+            app:destination="@id/studentLoginFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBooksFragment"
+        android:name="com.example.mylibrary.ui.student.MyBooksFragment"
+        android:label="My Books" />
+
+    <fragment
+        android:id="@+id/studentProfileFragment"
+        android:name="com.example.mylibrary.ui.student.StudentProfileFragment"
+        android:label="Student Profile" />
+
+    <fragment
+        android:id="@+id/adminLoginFragment"
+        android:name="com.example.mylibrary.ui.auth.AdminLoginFragment"
+        android:label="Admin Login">
+        <action
+            android:id="@+id/action_adminLoginFragment_to_adminMainFragment"
+            app:destination="@id/adminMainFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminMainFragment"
+        android:name="com.example.mylibrary.ui.admin.AdminMainFragment"
+        android:label="Admin Dashboard">
+        <action
+            android:id="@+id/action_adminMainFragment_to_manageBooksFragment"
+            app:destination="@id/manageBooksFragment" />
+        <action
+            android:id="@+id/action_adminMainFragment_to_manageStudentsFragment"
+            app:destination="@id/manageStudentsFragment" />
+        <action
+            android:id="@+id/action_adminMainFragment_to_borrowedBooksFragment"
+            app:destination="@id/borrowedBooksFragment" />
+        <action
+            android:id="@+id/action_adminMainFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+        <action
+            android:id="@+id/action_adminMainFragment_to_adminProfileFragment"
+            app:destination="@id/adminProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/manageBooksFragment"
+        android:name="com.example.mylibrary.ui.admin.ManageBooksFragment"
+        android:label="Manage Books" />
+
+    <fragment
+        android:id="@+id/manageStudentsFragment"
+        android:name="com.example.mylibrary.ui.admin.ManageStudentsFragment"
+        android:label="Manage Students" />
+
+    <fragment
+        android:id="@+id/borrowedBooksFragment"
+        android:name="com.example.mylibrary.ui.admin.BorrowedBooksFragment"
+        android:label="Borrowed Books" />
+
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.mylibrary.ui.admin.StatisticsFragment"
+        android:label="Statistics" />
+
+    <fragment
+        android:id="@+id/adminProfileFragment"
+        android:name="com.example.mylibrary.ui.admin.AdminProfileFragment"
+        android:label="Admin Profile">
+        <action
+            android:id="@+id/action_adminProfileFragment_to_loginFragment"
+            app:destination="@id/roleSelectionFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation> 
