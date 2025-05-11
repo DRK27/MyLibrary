@@ -68,6 +68,6 @@ public class Book {
     public void setBorrowedDate(String borrowedDate) { this.borrowedDate = borrowedDate; }
 
     public boolean isAvailable() {
-        return borrowedBy == null || borrowedBy.isEmpty();
+        return availableQuantity > 0;
     }
 } 

@@ -27,7 +27,6 @@ public class StudentMainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Загрузка имени пользователя
         String userId = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
         if (userId != null) {
             FirebaseFirestore.getInstance().collection("users").document(userId)
@@ -51,6 +50,11 @@ public class StudentMainFragment extends Fragment {
         binding.btnProfile.setOnClickListener(v ->
             Navigation.findNavController(v).navigate(R.id.action_studentMainFragment_to_studentProfileFragment)
         );
+
+        binding.btnLogout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Navigation.findNavController(v).navigate(R.id.action_studentMainFragment_to_roleSelectionFragment);
+        });
     }
 
     @Override

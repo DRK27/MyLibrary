@@ -59,6 +59,7 @@ public class MyBooksFragment extends Fragment implements BooksAdapter.OnBookActi
         binding.progressBar.setVisibility(View.VISIBLE);
         db.collection("borrowed_books")
             .whereEqualTo("userId", userId)
+            .whereEqualTo("status", "BORROWED")
             .get()
             .addOnSuccessListener(queryDocumentSnapshots -> {
                 List<String> bookIds = new ArrayList<>();

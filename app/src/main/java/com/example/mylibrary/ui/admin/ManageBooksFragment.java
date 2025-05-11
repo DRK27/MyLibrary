@@ -137,7 +137,38 @@ public class ManageBooksFragment extends Fragment implements BooksAdapter.OnBook
 
     @Override
     public void onReturnBook(Book book) {
-        // В режиме админа этот метод не используется
+        db.collection("borrowed_books")
+            .whereEqualTo("bookId", book.getId())
+            .whereEqualTo("status", "BORROWED")
+            .get()
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    // Возвращаем все найденные экземпляры (или только первый, если нужно)
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        doc.getReference().update(
+                            "status", "RETURNED",
+                            "returnDate", System.currentTimeMillis()
+                        );
+                    }
+                    db.collection("books").document(book.getId())
+                        .update(
+                            "availableQuantity", book.getAvailableQuantity() + 1,
+                            "borrowedBy", null
+                        )
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(requireContext(), "Книга возвращена", Toast.LENGTH_SHORT).show();
+                            loadBooks();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(requireContext(), "Ошибка при возврате: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                } else {
+                    Toast.makeText(requireContext(), "Нет записей о выданных книгах", Toast.LENGTH_SHORT).show();
+                }
+            })
+            .addOnFailureListener(e -> {
+                Toast.makeText(requireContext(), "Ошибка при возврате: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
     }
 
     @Override
@@ -199,7 +230,7 @@ public class ManageBooksFragment extends Fragment implements BooksAdapter.OnBook
         new androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setTitle("Кто брал книгу")
             .setItems(names.toArray(new String[0]), null)
-            .setPositiveButton("OK", null)
+            .setPositiveButton("Закрыть", null)
             .show();
     }
 

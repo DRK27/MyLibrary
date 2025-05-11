@@ -63,7 +63,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
             binding.tvTitle.setText(book.getTitle());
             binding.tvAuthor.setText(book.getAuthor());
             binding.tvDescription.setText(book.getDescription());
-            binding.tvAvailable.setText("В наличии: " + book.getAvailableQuantity() + "/" + book.getQuantity());
+            binding.tvAvailable.setText("В наличии: " + (book.getAvailableQuantity() != 0 ? book.getAvailableQuantity() : 0) + "/" + book.getQuantity());
+            binding.tvIsbn.setText("ISBN: " + (book.getIsbn() != null ? book.getIsbn() : "-"));
 
             if (isAdminMode) {
                 binding.btnEdit.setVisibility(View.VISIBLE);
@@ -85,21 +86,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
                 binding.btnDelete.setVisibility(View.GONE);
                 binding.getRoot().setOnClickListener(null);
 
-                if (book.isAvailable()) {
-                    binding.btnBorrow.setVisibility(View.VISIBLE);
-                    binding.btnReturn.setVisibility(View.GONE);
-                    binding.btnBorrow.setOnClickListener(v -> {
-                        if (listener != null) listener.onBorrowBook(book);
-                    });
-                }
-                else if (book.getBorrowedBy() != null && book.getBorrowedBy().equals(currentUserId)) {
+                if (book.getBorrowedBy() != null && book.getBorrowedBy().equals(currentUserId)) {
                     binding.btnBorrow.setVisibility(View.GONE);
                     binding.btnReturn.setVisibility(View.VISIBLE);
                     binding.btnReturn.setOnClickListener(v -> {
                         if (listener != null) listener.onReturnBook(book);
                     });
-                }
-                else {
+                } else if (book.isAvailable()) {
+                    binding.btnBorrow.setVisibility(View.VISIBLE);
+                    binding.btnReturn.setVisibility(View.GONE);
+                    binding.btnBorrow.setOnClickListener(v -> {
+                        if (listener != null) listener.onBorrowBook(book);
+                    });
+                } else {
                     binding.btnBorrow.setVisibility(View.GONE);
                     binding.btnReturn.setVisibility(View.GONE);
                 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -71,36 +72,35 @@ public class BorrowedBooksFragment extends Fragment {
     }
 
     private void loadBorrowedBooks() {
+        if (binding == null || !isAdded()) return;
+        
         binding.progressBar.setVisibility(View.VISIBLE);
-        binding.tvEmpty.setVisibility(View.GONE);
+        
+        db.collection("borrowed_books")
+            .whereEqualTo("status", currentFilter)
+            .addSnapshotListener((value, error) -> {
+                if (binding == null || !isAdded()) return;
+                
+                binding.progressBar.setVisibility(View.GONE);
+                
+                if (error != null) {
+                    Toast.makeText(requireContext(), 
+                        "Ошибка при загрузке: " + error.getMessage(), 
+                        Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        Query query = db.collection("borrowed_books")
-            .whereEqualTo("status", currentFilter);
-
-        query.addSnapshotListener((value, error) -> {
-            binding.progressBar.setVisibility(View.GONE);
-            
-            if (error != null) {
-                binding.tvEmpty.setText("Ошибка при загрузке данных");
-                binding.tvEmpty.setVisibility(View.VISIBLE);
-                return;
-            }
-
-            if (value == null || value.isEmpty()) {
-                binding.tvEmpty.setVisibility(View.VISIBLE);
-                adapter.setBorrowedBooks(new ArrayList<>());
-                return;
-            }
-
-            List<BorrowedBook> borrowedBooks = new ArrayList<>();
-            for (QueryDocumentSnapshot document : value) {
-                BorrowedBook borrowedBook = document.toObject(BorrowedBook.class);
-                borrowedBooks.add(borrowedBook);
-            }
-            
-            adapter.setBorrowedBooks(borrowedBooks);
-            binding.tvEmpty.setVisibility(borrowedBooks.isEmpty() ? View.VISIBLE : View.GONE);
-        });
+                if (value != null) {
+                    List<BorrowedBook> borrowedBooks = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : value) {
+                        BorrowedBook borrowedBook = doc.toObject(BorrowedBook.class);
+                        borrowedBook.setId(doc.getId());
+                        borrowedBooks.add(borrowedBook);
+                    }
+                    adapter.setBorrowedBooks(borrowedBooks);
+                    binding.tvEmpty.setVisibility(borrowedBooks.isEmpty() ? View.VISIBLE : View.GONE);
+                }
+            });
     }
 
     @Override

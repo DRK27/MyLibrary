@@ -46,6 +46,11 @@
         android:name="com.example.mylibrary.ui.student.StudentMainFragment"
         android:label="Student Main">
         <action
+            android:id="@+id/action_studentMainFragment_to_roleSelectionFragment"
+            app:destination="@id/studentLoginFragment"
+            app:popUpTo="@id/roleSelectionFragment"
+            app:popUpToInclusive="true"/>
+        <action
             android:id="@+id/action_studentMainFragment_to_browseBooksFragment"
             app:destination="@id/browseBooksFragment" />
         <action
@@ -79,7 +84,7 @@
 
     <fragment
         android:id="@+id/adminLoginFragment"
-        android:name="com.example.mylibrary.ui.auth.AdminLoginFragment"
+        android:name="com.example.mylibrary.ui.admin.AdminLoginFragment"
         android:label="Admin Login">
         <action
             android:id="@+id/action_adminLoginFragment_to_adminMainFragment"
